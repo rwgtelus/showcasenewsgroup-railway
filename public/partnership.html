@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partnership - Showcase News Group</title>
+    <meta name="description" content="Partner with Showcase News Group to bring trusted local journalism to your community.">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="nav-brand">
+                    <img src="/sng-logo.png" alt="Showcase News Group" class="logo">
+                </div>
+                <div class="nav-menu" id="navMenu">
+                    <a href="/" class="nav-link">Home</a>
+                    <a href="/about.html" class="nav-link">About</a>
+                    <a href="/#outlets" class="nav-link">Our Outlets</a>
+                    <a href="/partnership.html" class="nav-link active">Partnership</a>
+                    <a href="/contact.html" class="nav-link">Contact</a>
+                </div>
+                <div class="nav-actions">
+                    <a href="#partnership-form" class="btn btn-primary">Get Started</a>
+                </div>
+                <div class="nav-toggle" id="navToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="page-header-content">
+                <h1>Partner With <span class="highlight">Showcase News Group</span></h1>
+                <p>Join our growing network of local media outlets and help us bring trusted, community-focused journalism to cities across North America.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partnership Benefits -->
+    <section class="partnership-benefits">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Partner With Us?</h2>
+                <p>We provide the infrastructure, expertise, and support you need to build a successful local media outlet.</p>
+            </div>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">🌐</div>
+                    <h4>Proven Platform</h4>
+                    <p>Leverage our established brand, technology stack, and content management systems to launch faster and more efficiently.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">👥</div>
+                    <h4>Network Support</h4>
+                    <p>Join a collaborative network of local outlets sharing resources, best practices, and cross-promotional opportunities.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">📈</div>
+                    <h4>Growth Focused</h4>
+                    <p>Access to business development resources, revenue strategies, and ongoing support to help your outlet thrive.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partnership Models -->
+    <section class="partnership-models">
+        <div class="container">
+            <div class="section-header">
+                <h2>Partnership Opportunities</h2>
+                <p>We offer flexible partnership models to match your goals and resources.</p>
+            </div>
+            
+            <div class="models-grid">
+                <div class="model-card">
+                    <div class="model-icon">🏢</div>
+                    <h4>Local Franchise</h4>
+                    <p>Launch a Showcase News outlet in your city</p>
+                    <ul class="model-features">
+                        <li>✅ Full brand and platform access</li>
+                        <li>✅ Training and ongoing support</li>
+                        <li>✅ Revenue sharing model</li>
+                        <li>✅ Marketing and promotional support</li>
+                    </ul>
+                </div>
+                <div class="model-card">
+                    <div class="model-icon">💝</div>
+                    <h4>Content Partnership</h4>
+                    <p>Collaborate on content and cross-promotion</p>
+                    <ul class="model-features">
+                        <li>✅ Content syndication opportunities</li>
+                        <li>✅ Cross-promotional campaigns</li>
+                        <li>✅ Shared resources and expertise</li>
+                        <li>✅ Network event participation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partnership Form Section -->
+    <section id="partnership-form" class="partnership-form-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Ready to Partner With Us?</h2>
+                <p>Tell us about your vision and let's discuss how we can work together to bring Showcase News to your community.</p>
+            </div>
+
+            <div class="form-container">
+                <form id="partnershipForm" class="contact-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="partnerName">Contact Name *</label>
+                            <input type="text" id="partnerName" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="partnerEmail">Email Address *</label>
+                            <input type="email" id="partnerEmail" name="email" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="partnerCompany">Organization Name *</label>
+                        <input type="text" id="partnerCompany" name="company" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="partnerMessage">Comments *</label>
+                        <textarea id="partnerMessage" name="message" rows="6" required placeholder="Tell us about your partnership proposal, your vision for local media in your community, and how we can collaborate..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Submit Partnership Inquiry</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Partnership Inquiry Sent!</h3>
+                <span class="close" onclick="closeModal('successModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="success-content">
+                    <div class="success-icon">✅</div>
+                    <p id="successMessage">Thank you for your partnership inquiry! We will review your proposal and get back to you within 24 hours.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="/sng-logo.png" alt="Showcase News Group" class="footer-logo">
+                    <p>Building and supporting local digital outlets across North America.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Our Network</h4>
+                        <ul>
+                            <li><a href="https://denvershowcasenews.com" target="_blank">Denver Showcase News</a></li>
+                            <li><a href="https://vancouvershowcasenews.com" target="_blank">Vancouver Showcase News</a></li>
+                            <li><a href="/partnership.html">Future Outlets</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="/about.html">About Us</a></li>
+                            <li><a href="/partnership.html">Partnership</a></li>
+                            <li><a href="/contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms of Use</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Get Help</h4>
+                        <ul>
+                            <li><a href="/contact.html">General Contact</a></li>
+                            <li><a href="/partnership.html">Partnership Inquiry</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Showcase News Group. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/script.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Showcase News Group</title>
+    <meta name="description" content="Get in touch with Showcase News Group for general inquiries, support, or questions about our outlets.">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="nav-brand">
+                    <img src="/sng-logo.png" alt="Showcase News Group" class="logo">
+                </div>
+                <div class="nav-menu" id="navMenu">
+                    <a href="/" class="nav-link">Home</a>
+                    <a href="/about.html" class="nav-link">About</a>
+                    <a href="/#outlets" class="nav-link">Our Outlets</a>
+                    <a href="/partnership.html" class="nav-link">Partnership</a>
+                    <a href="/contact.html" class="nav-link active">Contact</a>
+                </div>
+                <div class="nav-actions">
+                    <a href="/partnership.html" class="btn btn-primary">Partner With Us</a>
+                </div>
+                <div class="nav-toggle" id="navToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="page-header-content">
+                <h1>Get In Touch</h1>
+                <p>Have questions about our outlets, need support, or want to learn more about Showcase News Group? We're here to help.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="contact-form-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Send Us a Message</h2>
+                <p>Fill out the form below and we'll get back to you as soon as possible.</p>
+            </div>
+
+            <div class="form-container">
+                <form id="generalForm" class="contact-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="generalName">Name *</label>
+                            <input type="text" id="generalName" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="generalEmail">Email Address *</label>
+                            <input type="email" id="generalEmail" name="email" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="generalCompany">Organization Name</label>
+                        <input type="text" id="generalCompany" name="company">
+                    </div>
+                    <div class="form-group">
+                        <label for="generalMessage">Comments *</label>
+                        <textarea id="generalMessage" name="message" rows="6" required placeholder="Please describe your inquiry in detail..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Options -->
+    <section class="contact-options">
+        <div class="container">
+            <div class="section-header">
+                <h2>Other Ways to Reach Us</h2>
+                <p>Choose the option that best fits your needs.</p>
+            </div>
+            
+            <div class="contact-cards">
+                <div class="contact-card">
+                    <div class="contact-card-icon">💼</div>
+                    <h3>Partnership Inquiries</h3>
+                    <p>Interested in bringing a Showcase News outlet to your city or exploring partnership opportunities?</p>
+                    <a href="/partnership.html" class="btn btn-primary">Visit Partnership Page</a>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-card-icon">🛠️</div>
+                    <h3>Technical Support</h3>
+                    <p>Need help with our outlets or experiencing technical issues? Use the general contact form above.</p>
+                    <a href="#contact-form" class="btn btn-secondary">Use Contact Form</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Message Sent!</h3>
+                <span class="close" onclick="closeModal('successModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="success-content">
+                    <div class="success-icon">✅</div>
+                    <p id="successMessage">Thank you for your message! We will get back to you within 24 hours.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="/sng-logo.png" alt="Showcase News Group" class="footer-logo">
+                    <p>Building and supporting local digital outlets across North America.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Our Network</h4>
+                        <ul>
+                            <li><a href="https://denvershowcasenews.com" target="_blank">Denver Showcase News</a></li>
+                            <li><a href="https://vancouvershowcasenews.com" target="_blank">Vancouver Showcase News</a></li>
+                            <li><a href="/partnership.html">Future Outlets</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="/about.html">About Us</a></li>
+                            <li><a href="/partnership.html">Partnership</a></li>
+                            <li><a href="/contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms of Use</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Get Help</h4>
+                        <ul>
+                            <li><a href="/contact.html">General Contact</a></li>
+                            <li><a href="/partnership.html">Partnership Inquiry</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Showcase News Group. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/script.js"></script>
+</body>
+</html>
+
