@@ -950,10 +950,10 @@ body {
 }
 
 .footer-logo {
-    height: 40px;
+    height: 50px;
     width: auto;
     margin-bottom: 1rem;
-    filter: brightness(0) invert(1);
+    object-fit: contain;
 }
 
 .footer-brand p {
