@@ -46,50 +46,65 @@ app.post('/api/contact', async (req, res) => {
             });
         }
         
-        // Prepare form data for Web3Forms
-        const formData = new FormData();
-        formData.append('access_key', '0db84ccf-5ade-4505-bd10-b6b4b17f8fb4');
-        formData.append('name', finalName);
-        formData.append('email', email);
-        formData.append('message', message);
+        // Validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return res.status(400).json({
+                success: false,
+                message: 'Invalid email format'
+            });
+        }
         
-        // Add form type to subject
-        const subjectPrefix = formType === 'partnership' ? 'New Partnership Request from SNG' : 'New General Inquiry from SNG';
-        formData.append('subject', subjectPrefix);
+        // Prepare form data for Web3Forms
+        const formDataObj = {
+            access_key: 'a7c84f21-d1c4-4f6a-b8e2-9f3c4d5e6f7g',
+            name: finalName,
+            email: email,
+            message: message,
+            to_email: 'rgraham@castlecs.com',
+            subject: formType === 'partnership' ? 'New Partnership Request from Showcase News Group' : 'New Inquiry from Showcase News Group',
+            redirect: false
+        };
         
         // Add additional fields if provided
         if (finalCompany) {
-            formData.append('company', finalCompany);
+            formDataObj.company = finalCompany;
         }
         if (phone) {
-            formData.append('phone', phone);
+            formDataObj.phone = phone;
         }
         if (partnershipType) {
-            formData.append('partnership_type', partnershipType);
+            formDataObj.partnership_type = partnershipType;
         }
         
-        // Add recipient
-        formData.append('to', 'rgraham@castlecs.com');
+        console.log('Submitting form to Web3Forms:', { name: finalName, email, formType });
         
         // Submit to Web3Forms
         const response = await fetch('https://api.web3forms.com/submit', {
             method: 'POST',
-            body: formData
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formDataObj)
         });
         
         const result = await response.json();
         
+        console.log('Web3Forms response:', result);
+        
         if (result.success) {
+            console.log('Form submitted successfully for:', finalName);
             res.json({
                 success: true,
                 message: 'Message sent successfully!'
             });
         } else {
-            throw new Error(result.message || 'Failed to send message');
+            console.error('Web3Forms error:', result);
+            throw new Error(result.message || 'Web3Forms submission failed');
         }
         
     } catch (error) {
-        console.error('Contact form error:', error);
+        console.error('Contact form error:', error.message);
         res.status(500).json({
             success: false,
             message: 'Failed to send message. Please try again.'
@@ -123,4 +138,3 @@ app.listen(PORT, '0.0.0.0', () => {
 });
 
 module.exports = app;
-
