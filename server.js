@@ -3,10 +3,23 @@ const cors = require('cors');
 const helmet = require('helmet');
 const compression = require('compression');
 const path = require('path');
+const FormData = require('form-data');
+const fetch = require('node-fetch');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 8080;
+
+// Mailgun configuration from environment variables
+const MAILGUN_API_KEY = process.env.MAILGUN_API_KEY || '';
+const MAILGUN_DOMAIN = process.env.MAILGUN_DOMAIN || 'mg.castledr.com';
+const MAILGUN_FROM = `noreply@${MAILGUN_DOMAIN}`;
+const RECIPIENT_EMAIL = process.env.RECIPIENT_EMAIL || 'rgraham@castlecs.com';
+
+// Validate Mailgun configuration
+if (!MAILGUN_API_KEY) {
+    console.warn('⚠️  WARNING: MAILGUN_API_KEY environment variable not set. Contact form will not work.');
+}
 
 // Middleware
 app.use(helmet({
@@ -17,7 +30,7 @@ app.use(helmet({
             fontSrc: ["'self'", "https://fonts.gstatic.com"],
             scriptSrc: ["'self'", "'unsafe-inline'"],
             imgSrc: ["'self'", "data:", "https:"],
-            connectSrc: ["'self'", "https://api.web3forms.com"]
+            connectSrc: ["'self'", "https://api.mailgun.net"]
         }
     }
 }));
@@ -55,56 +68,83 @@ app.post('/api/contact', async (req, res) => {
             });
         }
         
-        // Prepare form data for Web3Forms
-        const formDataObj = {
-            access_key: 'a7c84f21-d1c4-4f6a-b8e2-9f3c4d5e6f7g',
-            name: finalName,
-            email: email,
-            message: message,
-            to_email: 'rgraham@castlecs.com',
-            subject: formType === 'partnership' ? 'New Partnership Request from Showcase News Group' : 'New Inquiry from Showcase News Group',
-            redirect: false
-        };
-        
-        // Add additional fields if provided
-        if (finalCompany) {
-            formDataObj.company = finalCompany;
-        }
-        if (phone) {
-            formDataObj.phone = phone;
-        }
-        if (partnershipType) {
-            formDataObj.partnership_type = partnershipType;
+        // Validate Mailgun API key is configured
+        if (!MAILGUN_API_KEY) {
+            console.error('Mailgun API key not configured');
+            return res.status(500).json({
+                success: false,
+                message: 'Email service is not configured. Please try again later.'
+            });
         }
         
-        console.log('Submitting form to Web3Forms:', { name: finalName, email, formType });
+        // Build email subject
+        const emailSubject = formType === 'partnership' 
+            ? `New Partnership Request from ${finalName}` 
+            : `New Inquiry from ${finalName}`;
         
-        // Submit to Web3Forms
-        const response = await fetch('https://api.web3forms.com/submit', {
+        // Build email body
+        let emailBody = `
+Name: ${finalName}
+Email: ${email}
+${finalCompany ? `Company: ${finalCompany}` : ''}
+${phone ? `Phone: ${phone}` : ''}
+${partnershipType ? `Partnership Type: ${partnershipType}` : ''}
+
+Message:
+${message}
+
+---
+This message was sent from the Showcase News Group website.
+Form Type: ${formType === 'partnership' ? 'Partnership Inquiry' : 'General Contact'}
+        `.trim();
+        
+        console.log('Preparing to send email via Mailgun:', {
+            to: RECIPIENT_EMAIL,
+            from: MAILGUN_FROM,
+            subject: emailSubject,
+            senderName: finalName,
+            senderEmail: email
+        });
+        
+        // Prepare Mailgun form data
+        const form = new FormData();
+        form.append('from', `${finalName} <${MAILGUN_FROM}>`);
+        form.append('to', RECIPIENT_EMAIL);
+        form.append('subject', emailSubject);
+        form.append('text', emailBody);
+        form.append('h:Reply-To', email);
+        
+        // Send via Mailgun
+        const mailgunUrl = `https://api.mailgun.net/v3/${MAILGUN_DOMAIN}/messages`;
+        const auth = Buffer.from(`api:${MAILGUN_API_KEY}`).toString('base64');
+        
+        const response = await fetch(mailgunUrl, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Authorization': `Basic ${auth}`
             },
-            body: JSON.stringify(formDataObj)
+            body: form
         });
         
         const result = await response.json();
         
-        console.log('Web3Forms response:', result);
+        console.log('Mailgun response status:', response.status);
+        console.log('Mailgun response:', result);
         
-        if (result.success) {
-            console.log('Form submitted successfully for:', finalName);
+        if (response.ok && result.id) {
+            console.log('Email sent successfully:', result.id);
             res.json({
                 success: true,
                 message: 'Message sent successfully!'
             });
         } else {
-            console.error('Web3Forms error:', result);
-            throw new Error(result.message || 'Web3Forms submission failed');
+            console.error('Mailgun error:', result);
+            throw new Error(result.message || 'Failed to send email via Mailgun');
         }
         
     } catch (error) {
         console.error('Contact form error:', error.message);
+        console.error('Error stack:', error.stack);
         res.status(500).json({
             success: false,
             message: 'Failed to send message. Please try again.'
@@ -134,7 +174,8 @@ app.use((err, req, res, next) => {
 // Start server
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`🚀 Showcase News Group website running on port ${PORT}`);
-    console.log(`📧 Contact form configured for: rgraham@castlecs.com`);
+    console.log(`📧 Contact form configured for: ${RECIPIENT_EMAIL}`);
+    console.log(`📬 Using Mailgun domain: ${MAILGUN_DOMAIN}`);
 });
 
 module.exports = app;
